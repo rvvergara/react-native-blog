@@ -8,6 +8,7 @@ import {
   Button,
 } from 'react-native';
 import BlogContext from '../context/BlogContext';
+import Post from '../components/Post';
 
 const styles = StyleSheet.create({
   textInput: {
@@ -17,10 +18,11 @@ const styles = StyleSheet.create({
 });
 
 const IndexScreen = () => {
-  const {posts, addPost} = useContext(BlogContext);
+  const {posts, dispatch} = useContext(BlogContext);
   const [title, setTitle] = useState('');
   const handleSubmit = () => {
-    addPost({id: String(posts.length + 1), title});
+    const post = {id: String(posts.length + 1), title};
+    dispatch({type: 'ADD_POST', post});
     setTitle('');
   };
   return (
@@ -29,7 +31,7 @@ const IndexScreen = () => {
       <FlatList
         data={posts}
         keyExtractor={blog => blog.id}
-        renderItem={({item}) => <Text>{item.title}</Text>}
+        renderItem={({item}) => <Post post={item} />}
       />
       <TextInput
         style={styles.textInput}
