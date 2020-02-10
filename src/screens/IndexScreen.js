@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import BlogContext from '../context/BlogContext';
 
 const styles = StyleSheet.create({});
 
-const IndexScreen = () => (
-  <View>
-    <Text>This is Index Screen</Text>
-  </View>
-);
+const IndexScreen = () => {
+  const value = useContext(BlogContext);
+
+  return (
+    <View>
+      <Text>This is Index Screen</Text>
+    </View>
+  );
+};
 
 export default IndexScreen;
