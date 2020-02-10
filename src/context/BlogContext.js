@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, {createContext, useState} from 'react';
 
 const BlogContext = createContext();
 
@@ -14,8 +14,12 @@ const blogPosts = [
 ];
 
 export const BlogProvider = ({children}) => {
+  const [posts, setPosts] = useState(blogPosts);
+  const addPost = post => setPosts([...posts, post]);
   return (
-    <BlogContext.Provider value={blogPosts}>{children}</BlogContext.Provider>
+    <BlogContext.Provider value={{posts, addPost}}>
+      {children}
+    </BlogContext.Provider>
   );
 };
 
