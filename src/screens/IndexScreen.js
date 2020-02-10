@@ -7,7 +7,7 @@ import {
   TextInput,
   Button,
 } from 'react-native';
-import BlogContext from '../context/BlogContext';
+import {Context} from '../context/BlogContext';
 import Post from '../components/Post';
 
 const styles = StyleSheet.create({
@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
 });
 
 const IndexScreen = () => {
-  const {posts, dispatch} = useContext(BlogContext);
+  const {state, dispatch} = useContext(Context);
   const [title, setTitle] = useState('');
   const handleSubmit = () => {
-    const post = {id: String(posts.length + 1), title};
+    const post = {id: String(Number(state[state.length - 1].id) + 1), title};
     dispatch({type: 'ADD_POST', post});
     setTitle('');
   };
@@ -29,7 +29,7 @@ const IndexScreen = () => {
     <View>
       <Text>This is Index Screen</Text>
       <FlatList
-        data={posts}
+        data={state}
         keyExtractor={blog => blog.id}
         renderItem={({item}) => <Post post={item} />}
       />

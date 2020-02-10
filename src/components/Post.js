@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
-import BlogContext from '../context/BlogContext';
+import {Context} from '../context/BlogContext';
 
 const styles = StyleSheet.create({
   button: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 });
 
 const Post = ({post}) => {
-  const {dispatch} = useContext(BlogContext);
+  const {dispatch} = useContext(Context);
   return (
     <View>
       <Text>{post.title}</Text>
