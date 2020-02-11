@@ -1,7 +1,10 @@
-import React, {useContext} from 'react';
-import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import {
+  View, StyleSheet, FlatList, TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {Context} from '../context/BlogContext';
+import { Context } from '../context/BlogContext';
+import { fetchPosts } from '../thunks/post';
 import PostListItem from '../components/PostListItem';
 
 const styles = StyleSheet.create({
@@ -17,26 +20,28 @@ const styles = StyleSheet.create({
 });
 
 const IndexScreen = () => {
-  const {state} = useContext(Context);
+  const { state, dispatch } = useContext(Context);
+
+  useEffect(() => {
+    fetchPosts(dispatch);
+  }, []);
   return (
     <View>
       <FlatList
         data={state}
-        keyExtractor={blog => blog.id}
-        renderItem={({item}) => <PostListItem post={item} />}
+        keyExtractor={(blog) => blog.id}
+        renderItem={({ item }) => <PostListItem post={item} />}
       />
     </View>
   );
 };
 
-IndexScreen.navigationOptions = ({navigation}) => {
-  return {
-    headerRight: () => (
-      <TouchableOpacity onPress={() => navigation.navigate('Create')}>
-        <Icon name="plus" size={30} />
-      </TouchableOpacity>
-    ),
-  };
-};
+IndexScreen.navigationOptions = ({ navigation }) => ({
+  headerRight: () => (
+    <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+      <Icon name="plus" size={30} />
+    </TouchableOpacity>
+  ),
+});
 
 export default IndexScreen;
