@@ -1,13 +1,6 @@
-import React, {useContext, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TextInput,
-  Button,
-} from 'react-native';
-import uuid from 'uuid';
+import React, {useContext} from 'react';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 import {Context} from '../context/BlogContext';
 import PostListItem from '../components/PostListItem';
 
@@ -17,30 +10,27 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 10,
   },
+  addPostRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
 
-const IndexScreen = () => {
-  const {state, dispatch} = useContext(Context);
-  const [title, setTitle] = useState('');
-  const handleSubmit = () => {
-    const post = {id: uuid.v4(), title};
-    dispatch({type: 'ADD_POST', post});
-    setTitle('');
-  };
+const IndexScreen = ({navigation}) => {
+  const {state} = useContext(Context);
   return (
     <View>
-      <Text>This is Index Screen</Text>
+      <TouchableOpacity
+        style={styles.addPostRow}
+        onPress={() => navigation.navigate('Create')}>
+        <Text>Add New Post</Text>
+        <Icon name="plus" size={30} />
+      </TouchableOpacity>
       <FlatList
         data={state}
         keyExtractor={blog => blog.id}
         renderItem={({item}) => <PostListItem post={item} />}
       />
-      <TextInput
-        style={styles.textInput}
-        value={title}
-        onChangeText={val => setTitle(val)}
-      />
-      <Button title="Add post" onPress={handleSubmit} />
     </View>
   );
 };
