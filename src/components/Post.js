@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const Post = () => (
+const Post = ({post}) => (
   <View>
-    <Text>This is the Post Component</Text>
+    <Text>{post.title}</Text>
   </View>
 );
 

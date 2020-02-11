@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {withNavigation} from 'react-navigation';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {Context} from '../context/BlogContext';
 
@@ -21,17 +22,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostListItem = ({post}) => {
+const PostListItem = ({post, navigation}) => {
   const {dispatch} = useContext(Context);
   return (
-    <View style={styles.row}>
-      <Text style={styles.title}>{post.title}</Text>
-      <TouchableOpacity
-        onPress={() => dispatch({type: 'DELETE_POST', id: post.id})}>
-        <Icon name="trash" style={styles.icon} />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate('Post', {post})}>
+      <View style={styles.row}>
+        <Text style={styles.title}>{post.title}</Text>
+        <TouchableOpacity
+          onPress={() => dispatch({type: 'DELETE_POST', id: post.id})}>
+          <Icon name="trash" style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
   );
 };
 
-export default PostListItem;
+export default withNavigation(PostListItem);

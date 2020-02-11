@@ -4,9 +4,9 @@ import Post from '../components/Post';
 
 const styles = StyleSheet.create({});
 
-const PostScreen = () => (
+const PostScreen = ({navigation}) => (
   <View>
-    <Post />
+    <Post post={navigation.getParam('post')} />
   </View>
 );
 
