@@ -20,12 +20,8 @@ const postReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_POST':
       return [...state, action.post];
-    case 'UPDATE_POST': {
-      const indexToUpdate = state.findIndex(post => post.id === action.id);
-      const newState = [...state];
-      newState[indexToUpdate] = action.post;
-      return newState;
-    }
+    case 'UPDATE_POST':
+      return state.map(post => (post.id === action.id ? action.post : post));
     case 'DELETE_POST':
       return state.filter(post => post.id !== action.id);
     default:
