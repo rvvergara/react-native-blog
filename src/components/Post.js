@@ -4,6 +4,9 @@ import {View, Text} from 'react-native';
 const Post = ({post}) => (
   <View>
     <Text>{post.title}</Text>
+    <View>
+      <Text>{post.content}</Text>
+    </View>
   </View>
 );
 
