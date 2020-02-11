@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostForm = ({navigation, post}) => {
+const PostForm = ({navigation, post, origin}) => {
   const [title, setTitle] = useState(post ? post.title : '');
   const [content, setContent] = useState(post ? post.content : '');
   const {dispatch} = useContext(BlogContext);
@@ -35,7 +35,7 @@ const PostForm = ({navigation, post}) => {
     });
     setTitle('');
     setContent('');
-    navigation.navigate('Index');
+    navigation.push(origin, {post: postForSubmission});
   };
 
   return (

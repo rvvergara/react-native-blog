@@ -11,7 +11,7 @@ const EditScreen = ({navigation}) => {
   return (
     <View>
       <Text>Edit {post.title} here</Text>
-      <PostForm post={post} />
+      <PostForm post={post} origin={'Post'} />
     </View>
   );
 };

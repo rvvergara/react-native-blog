@@ -7,7 +7,7 @@ const styles = StyleSheet.create({});
 const CreateScreen = () => (
   <View>
     <Text>Add New Post Here</Text>
-    <PostForm />
+    <PostForm origin="Index" />
   </View>
 );
 
