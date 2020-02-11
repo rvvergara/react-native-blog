@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import uuid from 'uuid';
 import {Context as BlogContext} from '../context/BlogContext';
+import {addPost, updatePost} from '../actions/post';
 
 const styles = StyleSheet.create({
   titleInput: {
@@ -27,12 +28,10 @@ const PostForm = ({navigation, post, origin}) => {
       title,
       content,
     };
-    const actionType = post ? 'UPDATE_POST' : 'ADD_POST';
-    dispatch({
-      type: actionType,
-      post: postForSubmission,
-      id: post ? post.id : undefined,
-    });
+    const action = post
+      ? updatePost(post.id, postForSubmission)
+      : addPost(postForSubmission);
+    dispatch(action);
     setTitle('');
     setContent('');
     navigation.push(origin, {post: postForSubmission});

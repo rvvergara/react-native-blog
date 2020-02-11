@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {Context} from '../context/BlogContext';
 import PostListItem from '../components/PostListItem';
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const IndexScreen = ({navigation}) => {
+const IndexScreen = () => {
   const {state} = useContext(Context);
   return (
     <View>
