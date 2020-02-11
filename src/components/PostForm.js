@@ -1,9 +1,11 @@
-import React, {useState, useContext} from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
-import {withNavigation} from 'react-navigation';
+import React, { useState, useContext } from 'react';
+import {
+  View, Text, StyleSheet, TextInput, Button,
+} from 'react-native';
+import { withNavigation } from 'react-navigation';
 import uuid from 'uuid';
-import {Context as BlogContext} from '../context/BlogContext';
-import {addPost, updatePost} from '../actions/post';
+import { Context as BlogContext } from '../context/BlogContext';
+import { createPost, updatePostOnDb } from '../thunks/post';
 
 const styles = StyleSheet.create({
   titleInput: {
@@ -17,10 +19,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostForm = ({navigation, post, origin}) => {
+const PostForm = ({ navigation, post, origin }) => {
   const [title, setTitle] = useState(post ? post.title : '');
   const [content, setContent] = useState(post ? post.content : '');
-  const {dispatch} = useContext(BlogContext);
+  const { dispatch } = useContext(BlogContext);
 
   const handleSubmit = () => {
     const postForSubmission = {
@@ -29,12 +31,14 @@ const PostForm = ({navigation, post, origin}) => {
       content,
     };
     const action = post
-      ? updatePost(post.id, postForSubmission)
-      : addPost(postForSubmission);
-    dispatch(action);
+      ? () => updatePostOnDb(dispatch, post.id, postForSubmission)
+      : () => createPost(dispatch, postForSubmission);
+
+    action();
+
     setTitle('');
     setContent('');
-    navigation.push(origin, {post: postForSubmission});
+    navigation.push(origin, { post: postForSubmission });
   };
 
   return (
@@ -43,13 +47,13 @@ const PostForm = ({navigation, post, origin}) => {
       <TextInput
         style={styles.titleInput}
         value={title}
-        onChangeText={val => setTitle(val)}
+        onChangeText={(val) => setTitle(val)}
         placeholder="Put title here"
       />
       <Text>Content</Text>
       <TextInput
         value={content}
-        onChangeText={val => setContent(val)}
+        onChangeText={(val) => setContent(val)}
         multiline
         numberOfLines={5}
         style={styles.contentInput}

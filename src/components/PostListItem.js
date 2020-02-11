@@ -1,9 +1,11 @@
-import React, {useContext} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {withNavigation} from 'react-navigation';
+import React, { useContext } from 'react';
+import {
+  View, Text, StyleSheet, TouchableOpacity,
+} from 'react-native';
+import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import {Context} from '../context/BlogContext';
-import {removePost} from '../actions/post';
+import { Context } from '../context/BlogContext';
+import { deletePost } from '../thunks/post';
 
 const styles = StyleSheet.create({
   row: {
@@ -23,13 +25,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostListItem = ({post, navigation}) => {
-  const {dispatch} = useContext(Context);
+const PostListItem = ({ post, navigation }) => {
+  const { dispatch } = useContext(Context);
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Post', {post})}>
+    <TouchableOpacity onPress={() => navigation.navigate('Post', { post })}>
       <View style={styles.row}>
         <Text style={styles.title}>{post.title}</Text>
-        <TouchableOpacity onPress={() => dispatch(removePost(post.id))}>
+        <TouchableOpacity onPress={() => deletePost(dispatch, post.id)}>
           <Icon name="trash" style={styles.icon} />
         </TouchableOpacity>
       </View>
