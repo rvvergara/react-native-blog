@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {Context} from '../context/BlogContext';
 
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Post = ({post}) => {
+const PostListItem = ({post}) => {
   const {dispatch} = useContext(Context);
   return (
     <View style={styles.row}>
@@ -34,4 +34,4 @@ const Post = ({post}) => {
   );
 };
 
-export default Post;
+export default PostListItem;

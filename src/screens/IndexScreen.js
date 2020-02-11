@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import uuid from 'uuid';
 import {Context} from '../context/BlogContext';
-import Post from '../components/Post';
+import PostListItem from '../components/PostListItem';
 
 const styles = StyleSheet.create({
   textInput: {
@@ -33,7 +33,7 @@ const IndexScreen = () => {
       <FlatList
         data={state}
         keyExtractor={blog => blog.id}
-        renderItem={({item}) => <Post post={item} />}
+        renderItem={({item}) => <PostListItem post={item} />}
       />
       <TextInput
         style={styles.textInput}
