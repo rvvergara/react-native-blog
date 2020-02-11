@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import Post from '../components/Post';
 
 const styles = StyleSheet.create({});
 
 const PostScreen = () => (
   <View>
-    <Text>This is the post details screen</Text>
+    <Post />
   </View>
 );
 
