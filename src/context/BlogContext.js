@@ -1,12 +1,13 @@
+import uuid from 'uuid';
 import createDataContext from './createDataContext';
 
 const blogPosts = [
   {
-    id: '1',
+    id: uuid.v4(),
     title: 'Blog 1',
   },
   {
-    id: '2',
+    id: uuid.v4(),
     title: 'Blog 2',
   },
 ];

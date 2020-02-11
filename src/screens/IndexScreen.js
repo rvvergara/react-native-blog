@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
 } from 'react-native';
+import uuid from 'uuid';
 import {Context} from '../context/BlogContext';
 import Post from '../components/Post';
 
@@ -22,7 +23,7 @@ const IndexScreen = () => {
   const {state, dispatch} = useContext(Context);
   const [title, setTitle] = useState('');
   const handleSubmit = () => {
-    const post = {id: String(Number(state[state.length - 1].id) + 1), title};
+    const post = {id: uuid.v4(), title};
     dispatch({type: 'ADD_POST', post});
     setTitle('');
   };
