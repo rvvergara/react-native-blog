@@ -22,7 +22,7 @@ const postReducer = (state, action) => {
       return [...state, action.post];
     case 'UPDATE_POST': {
       const indexToUpdate = state.findIndex(post => post.id === action.id);
-      const newState = {...state};
+      const newState = [...state];
       newState[indexToUpdate] = action.post;
       return newState;
     }

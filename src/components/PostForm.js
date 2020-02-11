@@ -16,20 +16,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostForm = ({navigation}) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+const PostForm = ({navigation, post}) => {
+  const [title, setTitle] = useState(post ? post.title : '');
+  const [content, setContent] = useState(post ? post.content : '');
   const {dispatch} = useContext(BlogContext);
 
   const handleSubmit = () => {
-    const post = {
-      id: uuid.v4(),
+    const postForSubmission = {
+      id: post ? post.id : uuid.v4(),
       title,
       content,
     };
+    const actionType = post ? 'UPDATE_POST' : 'ADD_POST';
     dispatch({
-      type: 'ADD_POST',
-      post,
+      type: actionType,
+      post: postForSubmission,
+      id: post ? post.id : undefined,
     });
     setTitle('');
     setContent('');

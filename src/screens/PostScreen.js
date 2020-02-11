@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Post from '../components/Post';
 
 const styles = StyleSheet.create({});
@@ -9,5 +10,18 @@ const PostScreen = ({navigation}) => (
     <Post post={navigation.getParam('post')} />
   </View>
 );
+
+PostScreen.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Edit', {post: navigation.getParam('post')})
+        }>
+        <Icon name="pencil" size={30} />
+      </TouchableOpacity>
+    ),
+  };
+};
 
 export default PostScreen;
